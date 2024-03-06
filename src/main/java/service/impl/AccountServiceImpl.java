@@ -12,21 +12,21 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountDAO accountDAO;
 
-    @Override
-    @Transactional
-    public void deposit(Long accountNumber, double amount) {
-        accountDAO.setBalance(accountNumber, amount);
-    }
-
-    @Override
-    @Transactional
-    public void withdraw(Long accountNumber, double amount) {
-        accountDAO.setBalance(accountNumber, -amount);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public double getBalance(Long accountNumber) {
-        return accountDAO.getBalance(accountNumber);
-    }
+//    @Override
+//    @Transactional
+//    public void deposit(Long accountNumber, double amount) {
+//        accountDAO.deposit(accountNumber, amount);
+//    }
+//
+//    @Override
+//    @Transactional
+//    public void withdraw(Long accountNumber, double amount) {
+//        accountDAO.withdraw(accountNumber, -amount);
+//    }
+//
+//    @Override
+//    @Transactional(readOnly = true)
+//    public double getBalance(Long accountNumber) {
+//        return accountDAO.getBalance(accountNumber);
+//    }
 }
