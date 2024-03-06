@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Account")
-public class Account extends BaseEntity {
+public class Account {
 
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,12 +14,11 @@ public class Account extends BaseEntity {
     @Column(name = "balance")
     private double balance;
 
-    @Column(name = "account_type")
-    private double accountType;
+   @ManyToOne
+   @JoinColumn(name = "customer_id", nullable = false)
+   private Customer customer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false)
-    private Customer customer;
+
 
 //    // Getters and Setters
 //    public Long getAccountId() {
@@ -30,9 +29,9 @@ public class Account extends BaseEntity {
 //        this.accountId = accountId;
 //    }
 //
-//       public double getBalance() {
-//        return balance;
-//    }
+       public double getBalance() {
+        return balance;
+    }
 //
 //     public void setBalance(double balance) {
 //        this.balance = balance;

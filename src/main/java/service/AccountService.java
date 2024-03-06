@@ -1,8 +1,8 @@
 package service;
 
-import org.springframework.transaction.annotation.Transactional;
-
 public interface AccountService {
+    public Double getBalance(Long accountId);  // Change the parameter type to Long
+}
 
 //    @Transactional
 //    void deposit(Long accountNumber, double amount);
@@ -13,4 +13,4 @@ public interface AccountService {
 //
 //    @Transactional(readOnly = true)
 //    double getBalance(Long accountNumber);
-}
+
