@@ -13,4 +13,5 @@ public class BaseService {
             .addAnnotatedClass(Customer.class)
             .addAnnotatedClass(Transaction.class)   //va adauga clasele de entitate ca standarde pentru cmenzile sql
             .buildSessionFactory();
+
 }

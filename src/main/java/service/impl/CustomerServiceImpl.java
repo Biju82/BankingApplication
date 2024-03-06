@@ -1,6 +1,7 @@
 package service.impl;
 
 import dao.CustomerDAO;
+import dao.impl.CustomerDAOImpl;
 import entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,15 +14,11 @@ import java.util.List;
     @Service
     public class CustomerServiceImpl implements CustomerService {
 
-//        @Autowired
-//        private CustomerDAO customerDAO;
-//
-//        @Override
-//        @Transactional
-//        public void addCustomer(Customer customer) {
-//            customerDAO.addCustomer(customer);
-//        }
-//
+        private CustomerDAO customerDAO;
+        public CustomerServiceImpl(){
+            this.customerDAO = new CustomerDAOImpl(sessionFactory.createEntityManager());
+        }
+
 //    @Transactional(readOnly = true)
 //    public List<Customer> getAllCustomers() {
 //        return customerDAO.getAllCustomers();
