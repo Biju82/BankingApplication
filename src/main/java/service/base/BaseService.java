@@ -6,7 +6,7 @@ import entity.Transaction;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class BaseService {
+public abstract class BaseService {
     protected final SessionFactory sessionFactory = new Configuration()
             .configure()                            //incarca configuratia din resources / hibernate.cfg.xml
             .addAnnotatedClass(Account.class)

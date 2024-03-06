@@ -39,6 +39,7 @@ public class CustomerDAOImpl extends BaseDAO implements CustomerDAO {
             return null;
         }
 
+        System.out.println("Contul cu numele : " + customer.getName() + " a fost creat !");
         return customer;
     }
 

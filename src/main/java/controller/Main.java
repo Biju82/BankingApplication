@@ -11,17 +11,23 @@ import service.impl.AccountServiceImpl;
 import service.impl.CustomerServiceImpl;
 import service.impl.TransactionServiceImpl;
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
 
-       SessionFactory sessionFactory = new Configuration()
-                .configure()                            //incarca configuratia din resources / hibernate.cfg.xml
-                .addAnnotatedClass(Account.class)
-                .addAnnotatedClass(Customer.class)
-                .addAnnotatedClass(Transaction.class)   //va adauga clasele de entitate ca standarde pentru cmenzile sql
-                .buildSessionFactory();
+        Scanner scanner = new Scanner(System.in);
+
+//       SessionFactory sessionFactory = new Configuration()
+//                .configure()                            //incarca configuratia din resources / hibernate.cfg.xml
+//                .addAnnotatedClass(Account.class)
+//                .addAnnotatedClass(Customer.class)
+//                .addAnnotatedClass(Transaction.class)   //va adauga clasele de entitate ca standarde pentru cmenzile sql
+//                .buildSessionFactory();
 
         System.out.println("adaugam");
+
+        System.out.println( "Introdu numele : ");
 
 
 
