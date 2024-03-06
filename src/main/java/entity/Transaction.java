@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Transaction")
-public class Transaction extends BaseEntity {
+public class Transaction {
 
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,13 +23,10 @@ public class Transaction extends BaseEntity {
     @Column(name = "date")
     private Date date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "account_id", referencedColumnName = "account_id", nullable = false)
-    private Account account;
 
 //    // Getters and Setters
 //    public Long getTransactionId() {

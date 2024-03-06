@@ -16,32 +16,33 @@ public class CustomerDAOImpl extends BaseDAO implements CustomerDAO {
         super(entityManager);
     }
 
-//    @Override
-//    public Customer addCustomer(Customer customer) {
-//        EntityTransaction transaction = null;
-//        try {
-//            // check transaction is in place
-//            transaction = entityManager.getTransaction();
-//
-//            if (!transaction.isActive()) {
-//                transaction.begin();
-//            }
-//
-//            // sql command
-//            entityManager.persist(customer);
-//
-//            // commit command
-//            transaction.commit();
-//        } catch (Exception e) {
-//            if (transaction != null) {
-//                transaction.rollback();
-//            }
-//            return null;
-//        }
-//
-//        return customer;
-//    }
-//
+    @Override
+    public Customer addCustomer(Customer customer) {
+        EntityTransaction transaction = null;
+        try {
+            // check transaction is in place
+            transaction = entityManager.getTransaction();
+
+            if (!transaction.isActive()) {
+                transaction.begin();
+            }
+
+            // sql command
+            entityManager.persist(customer);
+
+            // commit command
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return null;
+        }
+
+        System.out.println("Contul cu numele : " + customer.getName() + " a fost creat !");
+        return customer;
+    }
+
 //
 //    @Override
 //    public void deleteById(Integer id) {
