@@ -11,35 +11,38 @@ public class Account extends BaseEntity {
     @Column(name = "account_id")
     private Long accountId;
 
-    @Column(name = "amount")
+    @Column(name = "balance")
     private double balance;
+
+    @Column(name = "account_type")
+    private double accountType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false)
     private Customer customer;
 
-    // Getters and Setters
-    public Long getAccountId() {
-        return accountId;
-    }
-
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
-    }
-
-       public double getBalance() {
-        return balance;
-    }
-
-     public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
-    }
+//    // Getters and Setters
+//    public Long getAccountId() {
+//        return accountId;
+//    }
+//
+//    public void setAccountId(Long accountId) {
+//        this.accountId = accountId;
+//    }
+//
+//       public double getBalance() {
+//        return balance;
+//    }
+//
+//     public void setBalance(double balance) {
+//        this.balance = balance;
+//    }
+//
+//    public Customer getCustomer() {
+//        return customer;
+//    }
+//
+//    public void setCustomer(Customer customer) {
+//        this.customer = customer;
+//    }
 }

@@ -1,4 +1,4 @@
-package task.dao;
+package dao;
 
 import entity.Transaction;
 
@@ -7,11 +7,13 @@ import java.util.Optional;
 
 public interface TransactionDAO {
 
-    Transaction save(Transaction transaction);
 
-    void deleteById(Integer id);
 
-    Optional<Transaction> findById(Integer id);
-
-    List<Transaction> findAll();
+//    Transaction save(Transaction transaction);
+//
+//    void deleteById(Integer id);
+//
+//    Optional<Transaction> findById(Integer id);
+//
+//    List<Transaction> findAll();
 }

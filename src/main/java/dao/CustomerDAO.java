@@ -8,11 +8,16 @@ import java.util.Optional;
 
 public interface CustomerDAO {
 
-    Customer save(Customer customer);
+//    Customer addCustomer(Customer customer);
+//
+//    void deleteById(Integer id);
+//
+//
+////    Customer getCustomerById(Integer id);
+//
+//    List<Customer> getAllCustomers();
 
-    void deleteById(Integer id);
 
-    Optional<Customer> findById(Integer id);
 
-    List<Customer> findAll();
+
 }
