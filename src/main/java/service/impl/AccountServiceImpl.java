@@ -1,3 +1,5 @@
+package service.impl;
+
 import dao.AccountDAO;
 import entity.Account;
 import org.hibernate.Session;
@@ -27,29 +29,11 @@ public class AccountServiceImpl extends BaseService implements AccountService {
             if (session.getTransaction() != null) {
                 session.getTransaction().rollback();
             }
-            e.printStackTrace(); // Handle exception as needed
+            e.printStackTrace();
         } finally {
             session.close();
         }
         return balance;
     }
 }
-
-//    @Override
-//    @Transactional
-//    public void deposit(Long accountNumber, double amount) {
-//        accountDAO.deposit(accountNumber, amount);
-//    }
-//
-//    @Override
-//    @Transactional
-//    public void withdraw(Long accountNumber, double amount) {
-//        accountDAO.withdraw(accountNumber, -amount);
-//    }
-//
-//    @Override
-//    @Transactional(readOnly = true)
-//    public double getBalance(Long accountNumber) {
-//        return accountDAO.getBalance(accountNumber);
-//    }
 

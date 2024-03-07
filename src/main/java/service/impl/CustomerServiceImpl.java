@@ -25,22 +25,7 @@ import java.util.List;
         }
 
         @Override
-        public Customer addCustomer(Customer customer){
+        public Customer addCustomer(Customer customer) {
             return customerDAO.addCustomer(customer);
 
-        }
-//    @Transactional(readOnly = true)
-//    public List<Customer> getAllCustomers() {
-//        return customerDAO.getAllCustomers();
-//    }
-//
-////    @Transactional(readOnly = true)
-////    public Customer getCustomerById(Long id) {
-////        return customerDAO.getCustomerById(id);
-////    }
-//
-////    @Transactional
-////    public void deleteCustomer(Long customerId) {
-////        customerDAO.deleteCustomer(customerId);
-////    }
-}
+        }}

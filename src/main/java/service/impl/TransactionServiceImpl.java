@@ -13,27 +13,7 @@ public class TransactionServiceImpl extends BaseService implements TransactionSe
 
     private TransactionDAO transactionDAO;
 
-//    public TransactionServiceImpl(TransactionDAO transactionDAO) {
-//        this.transactionDAO = new TransactionDAOImpl(sessionFactory.createEntityManager());
-//    }
-//
-//    @Override
-//    public Transaction save(Transaction transaction) {
-//        return null;
-//    }
-//
-//    @Override
-//    public void deleteById(Integer id) {
-//
-//    }
-//
-//    @Override
-//    public Optional<Transaction> findById(Integer id) {
-//        return Optional.empty();
-//    }
-//
-//    @Override
-//    public List<Transaction> findAll() {
-//        return null;
-//    }
+    public TransactionServiceImpl(TransactionDAO transactionDAO) {
+        this.transactionDAO = transactionDAO;
+    }
 }
