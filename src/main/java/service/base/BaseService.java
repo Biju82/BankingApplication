@@ -8,10 +8,10 @@ import org.hibernate.cfg.Configuration;
 
 public abstract class BaseService {
     protected final SessionFactory sessionFactory = new Configuration()
-            .configure()                            //incarca configuratia din resources / hibernate.cfg.xml
+            .configure()
             .addAnnotatedClass(Account.class)
             .addAnnotatedClass(Customer.class)
-            .addAnnotatedClass(Transaction.class)   //va adauga clasele de entitate ca standarde pentru cmenzile sql
+            .addAnnotatedClass(Transaction.class)
             .buildSessionFactory();
 
 }

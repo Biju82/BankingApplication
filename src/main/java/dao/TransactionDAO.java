@@ -9,7 +9,8 @@ public interface TransactionDAO {
 
 
 
-//    Transaction save(Transaction transaction);
+    Transaction save(Transaction transaction);
+    void withdraw(Transaction transaction);
 //
 //    void deleteById(Integer id);
 //

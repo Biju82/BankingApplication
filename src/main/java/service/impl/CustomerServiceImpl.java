@@ -13,26 +13,28 @@ import service.base.BaseService;
 import java.util.List;
 
 
-    @Service
-    public class CustomerServiceImpl extends BaseService implements CustomerService {
+public class CustomerServiceImpl extends BaseService implements CustomerService {
 
-        private CustomerDAO customerDAO;
+    private CustomerDAO customerDAO;
 
 
-        public CustomerServiceImpl(){
+    public CustomerServiceImpl() {
+        this.customerDAO = new CustomerDAOImpl(sessionFactory.createEntityManager());
+    }
 
-            this.customerDAO = new CustomerDAOImpl(sessionFactory.createEntityManager());
-        }
+    @Override
+    public void addCustomer(Customer customer) {
+        customerDAO.addCustomer(customer);
 
-        @Override
-        public Customer addCustomer(Customer customer){
-            return customerDAO.addCustomer(customer);
-
-        }
-//    @Transactional(readOnly = true)
-//    public List<Customer> getAllCustomers() {
-//        return customerDAO.getAllCustomers();
-//    }
+    }
+    @Override
+    public List<Customer> getAllCustomers() {
+       return customerDAO.getAllCustomers();
+    }
+    @Override
+    public Customer logIn(String email,String password){
+        return customerDAO.logIn(email,password);
+    }
 //
 ////    @Transactional(readOnly = true)
 ////    public Customer getCustomerById(Long id) {

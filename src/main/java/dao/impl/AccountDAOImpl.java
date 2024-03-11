@@ -1,9 +1,15 @@
 package dao.impl;
+
 import dao.AccountDAO;
 import entity.Account;
+import entity.Customer;
+import entity.Transaction;
+import exception.InssuficientBalanceException;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import dao.base.BaseDAO;
+import org.w3c.dom.css.ElementCSSInlineStyle;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,31 +20,120 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
         super(entityManager);
     }
 
-//    @Override
-//    public Account save(Account account) {
-//        EntityTransaction transaction = null;
-//        try {
-//            // check transaction is in place
-//            transaction = entityManager.getTransaction();
-//
-//            if (!transaction.isActive()) {
-//                transaction.begin();
-//            }
-//
-//            // sql command
-//            entityManager.persist(account);
-//
-//            // commit command
-//            transaction.commit();
-//        } catch (Exception e) {
-//            if (transaction != null) {
-//                transaction.rollback();
-//            }
-//            return null;
-//        }
-//
-//        return account;
-//    }
+    @Override
+    public void saveAccount(Account account) {
+        EntityTransaction transaction = null;
+        try {
+            // check transaction is in place
+            transaction = entityManager.getTransaction();
+
+            if (!transaction.isActive()) {
+                transaction.begin();
+            }
+
+
+            // sql command
+            entityManager.persist(account);
+
+            // commit command
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            System.out.println("Something went wrong");
+        }
+        System.out.println("The account in currency : " + account.getCurrency() + " was created succesfully !");
+    }
+
+    @Override
+    public void withdraw(Account account, Double ammount) throws InssuficientBalanceException {
+        EntityTransaction transaction = null;
+
+            // check transaction is in place
+            transaction = entityManager.getTransaction();
+
+            if (!transaction.isActive()) {
+                transaction.begin();
+            }
+
+            if(account.getBalance()>= ammount) {
+                Transaction withdrawTransaction = new Transaction(account.getCurrency(), ammount, account.getCustomer());
+                withdrawTransaction.setDescription("Withdraw");
+                account.setBalance(account.getBalance() - ammount);
+                // sql command
+                entityManager.persist(account);
+                entityManager.persist(withdrawTransaction);
+                transaction.commit();
+                System.out.println("Withdraw amount : " + ammount + " succesfully !");
+            }else
+            {
+                throw new InssuficientBalanceException("Insufficient founds !");
+            }
+
+
+
+
+    }
+
+    @Override
+    public void deposit(Account account, Double ammount) {
+        EntityTransaction transaction = null;
+        try {
+            transaction = entityManager.getTransaction();
+
+            if (!transaction.isActive()) {
+                transaction.begin();
+            }
+
+            Transaction depositTransaction = new Transaction(account.getCurrency(), ammount, account.getCustomer());
+            depositTransaction.setDescription("TopUp");
+            account.setBalance(account.getBalance() + ammount);
+            entityManager.persist(account);
+            entityManager.persist(depositTransaction);
+
+            //commit
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            System.out.println("Something went wrong");
+        }
+
+        System.out.println("Amount : " + ammount + " succesfully deposit !");
+    }
+
+
+    @Override
+    public void transfer(Account account, Account account2, Double ammount){
+        EntityTransaction transaction = null;
+
+        try{
+            transaction = entityManager.getTransaction();
+            if(!transaction.isActive()){
+                transaction.begin();
+            }
+
+            Transaction transfer = new Transaction(account.getCurrency(),ammount,account.getCustomer());
+            transfer.setDescription("Transfer from "+ account.getCustomer().getName() + " to " + account2.getCustomer().getName());
+            account.setBalance(account.getBalance()-ammount);
+            account2.setBalance(account2.getBalance()+ammount);
+            entityManager.persist(transfer);
+            entityManager.persist(account2);
+            entityManager.persist(account);
+
+            //commit
+            transaction.commit();
+        }   catch (Exception e){
+            if(transaction != null){
+                transaction.rollback();
+            }
+            System.out.println("Something went wrong !");
+        }
+
+        System.out.println("Amount : "+ ammount + " succesfully transfered to : " + account2.getCustomer().getName() + " !");
+    }
 //
 //    @Override
 //    public void deleteById(Long accountId) {
@@ -185,9 +280,31 @@ public class AccountDAOImpl extends BaseDAO implements AccountDAO {
 //        }
 //    }
 //
-//    @Override
-//    public Double getBalance(Long accountId) {
-//        return null;
-//    }
+    @Override
+    public Optional<Account> checkBalance(Account account) {
+        EntityTransaction transaction = null;
+        Optional<Account> found = Optional.empty();
+
+        try {
+            // check transaction is Null
+            transaction = entityManager.getTransaction();
+
+            if (!transaction.isActive()) {
+                transaction.begin();
+            }
+            int id = account.getAccountId();
+            // sql command
+           found = Optional.ofNullable(entityManager.find(Account.class, id));
+            // commit command
+            transaction.commit();
+        }catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
+
+        return found;
+
+    }
 }
 

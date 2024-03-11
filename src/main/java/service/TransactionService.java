@@ -7,7 +7,9 @@ import java.util.Optional;
 
 public interface TransactionService {
 
-//    Transaction save(Transaction transaction);
+   void save(Transaction transaction);
+
+   void withdraw(Transaction transaction);
 //
 //    void deleteById(Integer id);
 //
