@@ -1,17 +1,44 @@
 package service.impl;
 
 import dao.AccountDAO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import dao.impl.AccountDAOImpl;
+import entity.Account;
+import exception.InssuficientBalanceException;
 import service.AccountService;
 import service.base.BaseService;
 
-@Service
+import java.util.Optional;
+
 public class AccountServiceImpl extends BaseService implements AccountService {
 
-    @Autowired
     private AccountDAO accountDAO;
+
+    public AccountServiceImpl() {
+        this.accountDAO = new AccountDAOImpl(sessionFactory.createEntityManager());
+    }
+
+   public Optional<Account> checkBalance(Account account){
+        return this.accountDAO.checkBalance(account);
+   }
+
+    @Override
+    public void saveAccount(Account account){
+         accountDAO.saveAccount(account);
+    }
+
+    @Override
+    public void withdraw(Account account, Double ammount) throws InssuficientBalanceException {
+        this.accountDAO.withdraw(account,ammount);
+    }
+    @Override
+    public void deposit(Account account, Double ammount){
+        this.accountDAO.deposit(account,ammount);
+    }
+
+    @Override
+    public void transfer(Account account, Account account2, Double ammount) {
+        this.accountDAO.transfer(account, account2, ammount);
+    }
 
 //    @Override
 //    @Transactional

@@ -1,6 +1,8 @@
 package dao.impl;
 
 import dao.TransactionDAO;
+import entity.Account;
+import entity.Customer;
 import entity.Transaction;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -19,8 +21,34 @@ public class TransactionDAOImpl extends BaseDAO implements TransactionDAO {
 
 
 
-//    @Override
-//    public Transaction save(Transaction transaction) {
+    @Override
+    public Transaction save(Transaction transaction) {
+        EntityTransaction entityTransaction = null;
+        try {
+            // Begin transaction if not already active
+            entityTransaction = entityManager.getTransaction();
+            if (!entityTransaction.isActive()) {
+                entityTransaction.begin();
+            }
+
+            // Persist the transaction entity
+            entityManager.persist(transaction);
+
+            // Commit transaction
+            entityTransaction.commit();
+        } catch (Exception e) {
+            // Rollback transaction in case of exception
+            if (entityTransaction != null) {
+                entityTransaction.rollback();
+            }
+            return null;
+        }
+        System.out.println("tranzactia cu id: "+ transaction + " a fost salvata !");
+        return transaction;
+    }
+
+    @Override
+    public void withdraw(Transaction transaction){
 //        EntityTransaction entityTransaction = null;
 //        try {
 //            // Begin transaction if not already active
@@ -30,6 +58,13 @@ public class TransactionDAOImpl extends BaseDAO implements TransactionDAO {
 //            }
 //
 //            // Persist the transaction entity
+//            Account cont = new Account();
+//            List<Account> conturi = transaction.getCustomer().getAccounts();
+//            for(Account account : conturi){
+//                if(account.getCurrency() == transaction.getCurency()){
+//                    account.
+//                }
+//            }
 //            entityManager.persist(transaction);
 //
 //            // Commit transaction
@@ -39,11 +74,11 @@ public class TransactionDAOImpl extends BaseDAO implements TransactionDAO {
 //            if (entityTransaction != null) {
 //                entityTransaction.rollback();
 //            }
-//            return null;
+//            System.out.println("ceva nu a mers cum trebuie");
 //        }
-//
-//        return transaction;
-//    }
+//        System.out.println("tranzactia cu id: "+ transaction.getTransactionId() + " a fost salvata !");
+
+    }
 //
 //    @Override
 //    public void deleteById(Integer id) {

@@ -8,14 +8,15 @@ import java.util.Optional;
 
 public interface CustomerDAO {
 
-     Customer addCustomer(Customer customer);
+     void addCustomer(Customer customer);
+     Customer logIn(String email,String password);
 //
 //    void deleteById(Integer id);
 //
 //
 ////    Customer getCustomerById(Integer id);
 //
-//    List<Customer> getAllCustomers();
+    List<Customer> getAllCustomers();
 
 
 

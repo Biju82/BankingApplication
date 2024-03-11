@@ -11,16 +11,20 @@ import java.util.Optional;
 
 public class TransactionServiceImpl extends BaseService implements TransactionService {
 
-    private TransactionDAO transactionDAO;
+    private TransactionDAO transactionDAO ;
 
-//    public TransactionServiceImpl(TransactionDAO transactionDAO) {
-//        this.transactionDAO = new TransactionDAOImpl(sessionFactory.createEntityManager());
-//    }
-//
-//    @Override
-//    public Transaction save(Transaction transaction) {
-//        return null;
-//    }
+    public TransactionServiceImpl() {
+        this.transactionDAO = new TransactionDAOImpl(sessionFactory.createEntityManager());
+    }
+
+    @Override
+    public void save(Transaction transaction) {
+         transactionDAO.save(transaction);
+    }
+    @Override
+    public void withdraw(Transaction transaction){
+         transactionDAO.withdraw(transaction);
+    }
 //
 //    @Override
 //    public void deleteById(Integer id) {

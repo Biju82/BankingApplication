@@ -2,11 +2,22 @@ package entity;
 
 import entity.base.BaseEntity;
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 
 @Entity
 @Table(name = "Transaction")
 public class Transaction {
+
+    public Transaction(String transactionType, double amount, Customer customer) {
+        LocalDate localDate = LocalDate.now();
+        this.transactionType = transactionType;
+        this.amount = amount;
+        this.date = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        this.customer = customer;
+    }
 
     @Id // primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,64 +27,67 @@ public class Transaction {
     @Column(name = "transaction_type")
     private String transactionType;
 
-    @Column(name = "balance")
-    private double balance;
+    @Column(name = "amount")
+    private double amount;
+
+    @Column(name = "description")
+    private String description;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date")
     private Date date;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
 
-//    // Getters and Setters
-//    public Long getTransactionId() {
-//        return transactionId;
-//    }
-//
-//    public void setTransactionId(Long transactionId) {
-//        this.transactionId = transactionId;
-//    }
-//
-//    public String getTransactionType() {
-//        return transactionType;
-//    }
-//
-//    public void setTransactionType(String transactionType) {
-//        this.transactionType = transactionType;
-//    }
-//
-//    public double getBalance() {
-//        return balance;
-//    }
-//
-//    public void setBalance(double balance) {
-//        this.balance = balance;
-//    }
-//
-//    public Date getDate() {
-//        return date;
-//    }
-//
-//    public void setDate(Date date) {
-//        this.date = date;
-//    }
-//
-//    public Customer getCustomer() {
-//        return customer;
-//    }
-//
-//    public void setCustomer(Customer customer) {
-//        this.customer = customer;
-//    }
-//
-//    public Account getAccount() {
-//        return account;
-//    }
-//
-//    public void setAccount(Account account) {
-//        this.account = account;
-//    }
+
+    public Long getTransactionId() {
+        return transactionId;
+    }
+
+    public String getTransactionType() {
+        return transactionType;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setTransactionId(Long transactionId) {
+        this.transactionId = transactionId;
+    }
+
+    public void setTransactionType(String transactionType) {
+        this.transactionType = transactionType;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String curency) {
+        this.description = curency;
+    }
 }
